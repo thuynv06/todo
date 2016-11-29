@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo list</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Todo list</h1>
+    </div>
+    <div class="row">
+        <form method="post" action="/">
+            <div class="form-group form-inline">
+                <input type="text" class="form-control" placeholder="Nhập việc cần làm" style="width: 90%">
+            </div>
+            <div class="form-group form-inline">
+               <button type="submit" class="btn btn-default">Thêm mới</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <ul class="list-group">
+            <li id="1" class="list-group-item">
+                Ra bưu điện mua báo
+                <div class="btn-group-sm pull-right">
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-ok"></span></a>
+                    <a class="btn btn-default" onclick="edit(this)" id="1"><span class="pull-right glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+            <li class="list-group-item list-group-item-success">
+
+                Đi siêu thị mua bột giặt
+                <div class="btn-group-sm pull-right">
+                    <a class="btn btn-danger" disabled><span class="pull-right glyphicon glyphicon-ok"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                Gọi điện thoại cho sếp
+                <div class="btn-group-sm pull-right">
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-ok"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+            <li class="list-group-item list-group-item-success">
+                Gửi email cho khách hàng
+                <div class="btn-group-sm pull-right">
+                    <a class="btn btn-danger" disabled><span class="pull-right glyphicon glyphicon-ok"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <p>Viết nốt báo cáo</p>
+                <div class="btn-group-sm pull-right">
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-ok"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+            <li class="list-group-item">
+                Đi xem phim với bạn gái
+                <div class="btn-group-sm pull-right">
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-ok"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+
+function edit(a) {
+    var x=$(a).parent();
+    var y=$(x.parent())
+    console.log(y.text());
+    var str=y.text().trim();
+
+    $(y).empty();
+    $(y).append('<form method="post" action="/edit/id"><div class="form-group form-inline"><input type="text" class="form-control" value="'+str+'" style="width: 85%">' +
+        '<a class="btn btn-default pull-right"> CanCel </a><a id="'+a.id+'"class="btn btn-default pull-right" style="margin-right: 10px;"> Save </a></div></div>');
+}
+</script>
+</body>
+</html>

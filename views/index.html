@@ -1,0 +1,80 @@
+<!DOCTYPE  html>
+<html>
+<head>
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+<body style="background: rgba(63, 81, 181, 0.41);">
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        <div style="float:left;width: 50%">
+                <h1 >Todo List</h1>
+        </div>
+        <form method="post" action="/search">
+                <div class="form-group form-inline">
+                    <div id="custom-search-input" class="pull-right"  style="width:45%;">
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control input-lg" name="searchtodo" placeholder="tìm kiếm" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg"  type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                             </span>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div  style=" border: 0px; margin-top: 5px;">
+                <form method="post" action="/todo">
+                    <div class="form-group form-inline">
+                        <input name="todo" type="text"  class="form-control" placeholder="Nhập việc cần làm" style="width: 80%;height: 40px;">
+                        <button type="submit" style="height: 40px;" class="btn btn-default pull-right">Thêm Mới</button>
+                    </div>
+                </form>
+            </div>
+        <ul class="list-group">
+            {% for item in data %}
+            {% if item.completed %}
+            <li class="list-group-item list-group-item-info">{{ item.todo }}
+                <div class="btn-group-sm pull-right">
+                    <a id="{{ item.id }}" class="btn btn-default" href="/delete/{{ item.id }}"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+            {% else %}
+            <li class="list-group-item" >{{ item.todo }}
+                <div class="btn-group-sm pull-right">
+                    <a class="btn btn-default" href="/done/{{ item.id }}"><span class="pull-right glyphicon glyphicon-ok"></span></a>
+                    <a class="btn btn-default" onclick="edit(this)" id="{{ item.id }}"><span class="pull-right glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default" href="/delete/{{ item.id }}"><span class="pull-right glyphicon glyphicon-remove"></span></a>
+                </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+        </ul>
+    </div>
+    </div>
+</body>
+{% endblock %}
+<script>
+    function edit(a) {
+        var x=$(a).parent();
+        var y=$(x.parent())
+        console.log(y.text());
+        var str=y.text().trim();
+        $(y).empty();
+        $(y).append('<form method="post" action="/edit/'+a.id+'"><div class="form-group form-inline"><input type="text" name="todoedit" class="form-control" value="'+str+'" style="width: 75%">' +
+            '<button class="btn btn-default pull-right"> Cancel </button><button id="'+a.id+'"type="submit" class="btn btn-default pull-right" > Save </button></div></div>');
+    }
+</script>
+</body>
+</html>
